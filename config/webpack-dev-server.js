@@ -20,6 +20,7 @@ const options = {
     warnings: false,
     errors: true,
   },
+  historyApiFallback: true,
   // Show errors and warnings in console
   quiet: false,
   // Hide the build info

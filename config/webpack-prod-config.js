@@ -7,17 +7,12 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const paths = require('./paths');
 const common = require('./webpack-common-config.js');
 
 module.exports = merge(common, {
-  entry: {
-    // Split vendor code into separate bundles
-    vendor: ['react'],
-    app: paths.appIndexJs,
-  },
   mode: 'production',
   // Set the name of our JS bundle using a chuckhash
   // (e.g. '5124f5efa5436b5b5e7d_app.js')
@@ -37,7 +32,10 @@ module.exports = merge(common, {
       },
     }),
     // Extract text/(s)css from a bundle, or bundles, into a separate file.
-    new ExtractTextPlugin('styles.css'),
+    new MiniCssExtractPlugin({
+      path: paths.appBuild,
+      filename: 'styles.css'
+    })
   ],
   module: {
     rules: [
@@ -56,30 +54,21 @@ module.exports = merge(common, {
         },
       },
       {
-        // look for .css or .scss files.
+        // look for .css or .scss files
         test: /\.(css|scss)$/,
-        // in the `src` directory
-        include: [path.resolve(paths.appSrc)],
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                discardDuplicates: true,
-                sourceMap: false,
-                // This enables local scoped CSS based in CSS Modules spec
-                modules: true,
-                // generates unique name for each class (e.g. app__app___2x3cr)
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },
-            },
-            {
-              loader: 'sass-loader',
-            },
-          ],
-        }),
+        use: [
+
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
+      }
     ],
   },
 });
