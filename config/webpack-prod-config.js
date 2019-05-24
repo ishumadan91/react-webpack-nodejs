@@ -34,7 +34,7 @@ module.exports = merge(common, {
     // Extract text/(s)css from a bundle, or bundles, into a separate file.
     new MiniCssExtractPlugin({
       path: paths.appBuild,
-      filename: 'styles.css'
+      filename: '[chunkhash]_styles.css'
     })
   ],
   module: {
