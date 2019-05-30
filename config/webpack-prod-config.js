@@ -20,7 +20,7 @@ module.exports = merge(common, {
   output: {
     filename: '[chunkhash]_[name].js',
     path: paths.appBuild,
-    publicPath: '/',
+    publicPath: '/static',
   },
   plugins: [
     // Uglify to minify your JavaScript
@@ -36,39 +36,5 @@ module.exports = merge(common, {
       path: paths.appBuild,
       filename: '[chunkhash]_styles.css'
     })
-  ],
-  module: {
-    rules: [
-      {
-        // look for .js or .jsx files
-        test: /\.(js|jsx)$/,
-        // in the `src` directory
-        include: path.resolve(paths.appSrc),
-        exclude: /node_modules/,
-        use: {
-          // use babel for transpiling JavaScript files
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/react'],
-          },
-        },
-      },
-      {
-        // look for .css or .scss files
-        test: /\.(css|scss)$/,
-        use: [
-
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
-        ]
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader'
-        ]
-      }
-    ],
-  },
+  ]
 });

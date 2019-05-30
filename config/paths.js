@@ -10,10 +10,10 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 module.exports = {
-  appAssets: resolveApp('src/assets'), // For images and other assets
+  appAssets: resolveApp('client/assets'), // For images and other assets
   appBuild: resolveApp('build'), // Prod built files end up here
   // appConfig: resolveApp('config'), // App config files
-  appHtml: resolveApp('src/index.html'),
-  appIndexJs: resolveApp('src/index.js'), // Main entry point
-  appSrc: resolveApp('src'), // App source
+  appHtml: resolveApp('client/index.html'),
+  appIndexJs: resolveApp('client/index.js'), // Main entry point
+  appSrc: resolveApp('client'), // App source
 };

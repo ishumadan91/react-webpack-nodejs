@@ -1,5 +1,4 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import './app.scss';
 import { createStore } from 'redux'
@@ -38,4 +37,4 @@ const App = () => (
     
 );
 
-export default hot(module)(App);
+export default App;
